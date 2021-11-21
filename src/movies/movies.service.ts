@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { MovieRepository } from './movie.repository';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Movie } from './movie.entity';
@@ -27,9 +27,13 @@ export class MoviesService {
   }
 
   async getById(id, userId?: number) {
-    return userId
-      ? this.movieRepository.findByIdByUser(id, userId)
-      : this.movieRepository.findById(id);
+    const movie = userId
+      ? await this.movieRepository.findByIdByUser(id, userId)
+      : await this.movieRepository.findById(id);
+    if (!movie) {
+      throw new NotFoundException(`Movie with id ${id} not found`);
+    }
+    return movie;
   }
   async createMovie(movieDto: MovieDto): Promise<Movie> {
     const movie = this.movieRepository.create(movieDto);
@@ -59,7 +63,6 @@ export class MoviesService {
     }
     Object.assign(foundedStatus, { ...status, movieId: id, userId });
     await this.statusRepository.save(foundedStatus);
-    console.log(foundedStatus);
     console.log(
       `Status for movie with id ${id} and user with id ${userId} successfully updated`,
     );
