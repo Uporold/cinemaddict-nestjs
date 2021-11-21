@@ -18,5 +18,5 @@ Source code of frontend application available in https://github.com/Uporold/cine
 - [GET] `API/movies/:movieId` get movie by id
 - [PATCH] `API/movies/:movieId/status` update user status of movie
 - [GET] `API/comments/:movieId` get movie comments
-- [DELETE] `API/comments/:movieId` create new comment
+- [POST] `API/comments/:movieId` create new comment
 - [DELETE] `API/comments/:commentId` delete comment
