@@ -4,9 +4,13 @@
   - Change .env properties if you need
   - Create postgresql database (by default mydb)
 - Clone this repo
-- `npm run typeorm:cli:migration:run` to run migration and fill database with movies
 - `npm i` to install all required dependencies
 - `npm run start:dev` to start local dev server (Default API: http://localhost:4000)
+
+## Run with docker
+You can also run this project with docker compose which contains nest.js app, postgresql db and pgadmin
+
+`docker-compose up -d`
 
 ## Frontend
 Source code of frontend application available in https://github.com/Uporold/cinemaddict-react

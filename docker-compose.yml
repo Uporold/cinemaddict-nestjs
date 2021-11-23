@@ -1,0 +1,43 @@
+version: "3"
+services:
+  nest-app:
+    container_name: 'nest-app'
+    build: .
+    depends_on:
+      - postgres
+    ports:
+      - ${PORT}:${PORT}
+    restart: always
+    environment:
+      DOCKER: 'true'
+    env_file:
+      - .env
+  postgres:
+    container_name: postgres
+    image: postgres:latest
+    expose:
+      - ${POSTGRES_PORT}
+    ports:
+      - ${POSTGRES_PORT}:${POSTGRES_PORT}
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    env_file:
+      - .env
+    command: -p ${POSTGRES_PORT}
+
+  pgadmin:
+    depends_on:
+      - postgres
+    container_name: pgadmin
+    image: dpage/pgadmin4
+    ports:
+      - "8080:80"
+    volumes:
+      - pgadmin:/var/lib/pgadmin
+    env_file:
+      - .env
+
+volumes:
+  postgres:
+    name: app-db
+  pgadmin:
