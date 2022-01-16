@@ -27,6 +27,5 @@ import { AnonymousStrategy } from './strategies/anonymous.strategy';
   ],
   controllers: [AuthController],
   providers: [AuthService, LocalStrategy, JwtStrategy, AnonymousStrategy],
-  exports: [JwtStrategy, AnonymousStrategy, PassportModule],
 })
 export class AuthModule {}
