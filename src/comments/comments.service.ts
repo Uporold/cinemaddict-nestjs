@@ -12,7 +12,10 @@ export class CommentsService {
   ) {}
 
   async getMovieComments(movieId: number) {
-    return await this.commentRepository.find({ where: { movieId } });
+    return await this.commentRepository.find({
+      where: { movieId },
+      order: { creationDate: 'DESC' },
+    });
   }
 
   async create(movieId: number, user: User, commentDto: CommentDto) {
